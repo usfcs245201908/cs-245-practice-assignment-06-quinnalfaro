@@ -1,67 +1,46 @@
 public class ArrayQueue<T> implements Queue {
 
-    int front, rear, size; 
-    int  capacity; 
-    int array[]; 
-       
-    public ArrayQueue() { 
-         this.capacity = 10; 
-         front = this.size = 0;  
-         rear = capacity - 1; 
-         array = new int[this.capacity]; 
-            
-    } 
-       
-    // Queue is full when size becomes equal to  
-    // the capacity  
-    public boolean isFull(Queue queue) 
-    {  return (queue.size == queue.capacity); 
-    } 
-       
-    // Queue is empty when size is 0 
-    public boolean isEmpty(Queue queue) 
-    {  return (queue.size == 0); } 
-       
-    // Method to add an item to the queue.  
-    // It changes rear and size 
-    public void enqueue( int item) 
-    { 
-        if (isFull(this)) 
-            return; 
-        this.rear = (this.rear + 1)%this.capacity; 
-        this.array[this.rear] = item; 
-        this.size = this.size + 1; 
-        System.out.println(item+ " enqueued to queue"); 
-    } 
-       
-    // Method to remove an item from queue.   
-    // It changes front and size 
-    public int dequeue() 
-    { 
-        if (isEmpty(this)) 
-            return Integer.MIN_VALUE; 
-           
-        int item = this.array[this.front]; 
-        this.front = (this.front + 1)%this.capacity; 
-        this.size = this.size - 1; 
-        return item; 
-    } 
-       
-    // Method to get front of queue 
-    public int front() 
-    { 
-        if (isEmpty(this)) 
-            return Integer.MIN_VALUE; 
-           
-        return this.array[this.front]; 
-    } 
-        
-    // Method to get rear of queue 
-    public int rear() 
-    { 
-        if (isEmpty(this)) 
-            return Integer.MIN_VALUE; 
-           
-        return this.array[this.rear]; 
-    } 
+	private int front, rear, size, arraySize; 
+	private T[] a; 
+
+	public ArrayQueue() {
+		arraySize = 10;
+		front = rear = size = 0; 
+		T[] a = (T[]) new Object[arraySize];
+	}
+
+	//checks to see if array is full by compairaing 
+	//the number of objects and the array size
+	public boolean isFull(){
+		return (size == arraySize); 
+	}
+
+	//checks if its empty by checking the size 
+	//(number of objects in array)
+	public boolean empty(){
+		return (size == 0);
+	}
+
+	// adds item to queue  
+	// It changes rear and size 
+	// circularly adds, thus not making array unnecissarily long on both ends
+	public void enqueue(T item){
+		if (isFull()){
+			return; 
+		}
+		rear = (rear + 1) % arraySize;
+		a[rear] = item;
+		size ++;
+	}
+
+	//first checks if empty and throws exception if so
+	public T dequeue() throws Exception{
+		if (empty()){
+			throw new IllegalArgumentException(); 
+		}
+		size--; 
+		T temp = a[front]; 
+		front = (front + 1) % arraySize; 
+        return temp; 
+    }
 }
