@@ -7,11 +7,9 @@ public class ArrayStack<T> implements Stack<T>{
 	private T[] a;
 
 	public ArrayStack() {
-		T[] a = (T[]) new Object[defaultSize];
-		this.top = 0;
+		this.a = (T[]) new Object[defaultSize];
+		this.top = -1;
 	}
-
-
 
 	public void push(T item){
 		if(top == a.length - 1){
@@ -28,14 +26,14 @@ public class ArrayStack<T> implements Stack<T>{
 	}
 
 	public T peek() throws Exception{
-		if(empty()){
+		if(top == a.length -1){
 			throw new EmptyStackException();
 		}
 		return a[top];
 	}
 
 	public boolean empty(){
-		if (top == 0){
+		if (top == -1){
 			return true;
 		}
 		return false;

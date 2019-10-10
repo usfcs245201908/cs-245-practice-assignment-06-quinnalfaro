@@ -1,24 +1,28 @@
 public class ArrayQueue<T> implements Queue<T> {
 
-	private int front, rear, size, arraySize; 
+	private int front, rear, size; 
 	private T[] a; 
 
 	public ArrayQueue() {
-		arraySize = 10;
-		front = rear = size = 0; 
-		T[] a = (T[]) new Object[arraySize];
+		this.front = 0;
+		this.rear = 0;
+		size = 0; 
+		this.a = (T[]) new Object[10];
 	}
 
 	//checks to see if array is full by compairaing 
 	//the number of objects and the array size
 	public boolean isFull(){
-		return (size == arraySize); 
+		if (size == a.length){
+			return true;
+		}
+		return false; 
 	}
 
 	//checks if its empty by checking the size 
 	//(number of objects in array)
 	public boolean empty(){
-		return (size == 0);
+		return (this.size == 0);
 	}
 
 	// adds item to queue  
@@ -26,10 +30,10 @@ public class ArrayQueue<T> implements Queue<T> {
 	// circularly adds, thus not making array unnecissarily long on both ends
 	public void enqueue(T item){
 		if (isFull()){
-			grow_array(); 
+			grow_array();
 		}
-		rear = (rear + 1) % arraySize;
 		a[rear] = item;
+		rear = (rear + 1) % a.length;
 		size ++;
 	}
 
@@ -39,9 +43,9 @@ public class ArrayQueue<T> implements Queue<T> {
 		if (empty()){
 			throw new IllegalArgumentException(); 
 		}
+		T temp = a[front];
+		front = (front + 1) % a.length; 
 		size--; 
-		T temp = a[front]; 
-		front = (front + 1) % arraySize; 
 		return temp; 
 	}
 
@@ -51,13 +55,12 @@ public class ArrayQueue<T> implements Queue<T> {
 	//2 for loops to ensure correct order
 	private void grow_array(){
 		T[] new_array = (T[]) new Object[a.length * 2];
-		for(int i = 0; i < arraySize - front; i ++){
-			new_array[i] = a[front + i];
+		for(int i = front; i < a.length; i ++){
+			new_array[i - front] = a[i];
 		}
 		for(int i = 0; i < front; i ++){
-			new_array[i + arraySize - front] = a[i];
+			new_array[i + front + 1] = a[i];
 		}
 		a = new_array;
-
 	}
 }
