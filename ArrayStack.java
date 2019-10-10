@@ -1,15 +1,15 @@
 import java.util.EmptyStackException;
 
-public class ArrayStack implements Stack{
+public class ArrayStack<T> implements Stack{
 
 	private final int defaultSize = 10;
 	private int top;
+	private T[] a;
 
 	public ArrayStack() {
 		T[] a = (T[]) new Object[defaultSize];
 		this.top = 0;
 	}
-
 
 
 
@@ -48,7 +48,7 @@ public class ArrayStack implements Stack{
 
 
 	private void grow_array(){
-		T[] new_array = new T[a.length * 2];
+		T[] new_array = (T[]) new Object[a.length * 2];
 		for(int i = 0; i < a.length; i ++){
 			new_array[i] = a[i];
 		}
