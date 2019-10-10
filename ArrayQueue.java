@@ -6,7 +6,7 @@ public class ArrayQueue<T> implements Queue<T> {
 	public ArrayQueue() {
 		this.front = 0;
 		this.rear = 0;
-		size = 0; 
+		this.size = 0; 
 		this.a = (T[]) new Object[10];
 	}
 
@@ -37,7 +37,7 @@ public class ArrayQueue<T> implements Queue<T> {
 		size ++;
 	}
 
-	//first checks if empty and throws exception
+	// first checks if empty and throws exception
 	// decrements size, pops out the front item, then iterates size
 	public T dequeue() throws Exception{
 		if (empty()){
