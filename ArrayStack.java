@@ -1,6 +1,6 @@
 import java.util.EmptyStackException;
 
-public class ArrayStack<T>c implements Stack{
+public class ArrayStack<T> implements Stack<T>{
 
 	private final int defaultSize = 10;
 	private int top;
@@ -10,7 +10,6 @@ public class ArrayStack<T>c implements Stack{
 		T[] a = (T[]) new Object[defaultSize];
 		this.top = 0;
 	}
-
 
 
 
@@ -40,9 +39,7 @@ public class ArrayStack<T>c implements Stack{
 			return true;
 		}
 		return false;
-
 	}
-
 
 
 

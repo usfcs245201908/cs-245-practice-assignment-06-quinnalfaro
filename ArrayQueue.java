@@ -1,4 +1,4 @@
-public class ArrayQueue<T> implements Queue {
+public class ArrayQueue<T> implements Queue<T> {
 
 	private int front, rear, size, arraySize; 
 	private T[] a; 
@@ -55,7 +55,7 @@ public class ArrayQueue<T> implements Queue {
 			new_array[i] = a[front + i];
 		}
 		for(int i = 0; i < front; i ++){
-			new_array[i + arraySize - front] = a[xi];
+			new_array[i + arraySize - front] = a[i];
 		}
 		a = new_array;
 
