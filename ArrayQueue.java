@@ -26,14 +26,15 @@ public class ArrayQueue<T> implements Queue {
 	// circularly adds, thus not making array unnecissarily long on both ends
 	public void enqueue(T item){
 		if (isFull()){
-			return; 
+			grow_array(); 
 		}
 		rear = (rear + 1) % arraySize;
 		a[rear] = item;
 		size ++;
 	}
 
-	//first checks if empty and throws exception if so
+	//first checks if empty and throws exception
+	// decrements size, pops out the front item, then iterates size
 	public T dequeue() throws Exception{
 		if (empty()){
 			throw new IllegalArgumentException(); 
@@ -41,6 +42,22 @@ public class ArrayQueue<T> implements Queue {
 		size--; 
 		T temp = a[front]; 
 		front = (front + 1) % arraySize; 
-        return temp; 
-    }
+		return temp; 
+	}
+
+
+
+	//grows array in case that the front meets back
+	//2 for loops to ensure correct order
+	private void grow_array(){
+		T[] new_array = (T[]) new Object[a.length * 2];
+		for(int i = 0; i < arraySize - front; i ++){
+			new_array[i] = a[front + i];
+		}
+		for(int i = 0; i < front; i ++){
+			new_array[i + arraySize - front] = a[xi];
+		}
+		a = new_array;
+
+	}
 }
